@@ -1,0 +1,20 @@
+#!name=📺 BiliBili: ✈ Roaming β
+#!desc=(BETA) 哔哩哔哩：漫游模式 （播放链接反向代理）
+#!openUrl=http://boxjs.com/#/app/BiliBili.Roaming.beta
+#!author=VirgilClyne
+#!homepage=https://github.com/BiliUniverse
+#!manual=https://github.com/BiliUniverse/Roaming/wiki
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_3.png
+
+[Script]
+http-request ^https?://api.bilibili.com/pgc/view/v2/app/season(?.+)?$ requires-body=0, timeout=15, script-path=https://www.example.com/BiliBili.Roaming.request.beta.js, tag=BiliBili.Roaming.season, argument=
+
+http-request ^https?://grpc.biliapi.net/bilibili.pgc.gateway.player.v2.PlayURL/PlayView(?.+)?$ requires-body=0, timeout=15, script-path=https://www.example.com/BiliBili.Roaming.request.beta.js, tag=BiliBili.Roaming.grpc, argument=
+
+http-request ^https?://app.bilibili.com/bilibili.pgc.gateway.player.v2.PlayURL/PlayView(?.+)?$ requires-body=0, timeout=15, script-path=https://www.example.com/BiliBili.Roaming.request.beta.js, tag=BiliBili.Roaming.app, argument=
+
+http-request ^https?://app.bilibili.com/bilibili.polymer.app.search.v1.Search/SearchByType(?.+)?$ requires-body=0, timeout=15, script-path=https://www.example.com/BiliBili.Roaming.request.beta.js, tag=BiliBili.Roaming.app, argument=
+
+[MITM]
+hostname = %APPEND% api.bilibili.com, grpc.biliapi.net, app.biliintl.com
+tcp-connection = true
